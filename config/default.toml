@@ -1,0 +1,18 @@
+[app]
+    env = "dev"
+    service_name = "expenseManagement"
+    host = "localhost"
+
+
+[database]
+    dialect = "mysql"
+    protocol = "tcp"
+    host = "127.0.0.1"
+    port = 3306
+    username = "expensemanagement"
+    password = "expensemanagement"
+    ssl_mode = "require"
+    name = "ExpenseManagement"
+    maxopenconns = 10
+    maxidleconns = 5
+    connmaxlifetime = 120

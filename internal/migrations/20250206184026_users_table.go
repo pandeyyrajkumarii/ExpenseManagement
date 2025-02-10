@@ -13,14 +13,14 @@ func init() {
 func upUsersTable(ctx context.Context, tx *sql.Tx) error {
 	// This code is executed when the migration is applied.
 	_, err := tx.Exec(`
-create table if not exists users (
-    id char(14) NOT NULL primary key,
-    name varchar(50) NOT NULL,
-    age int NOT NULL,
-    gender char(1) NOT NULL, 
-    created_at int NOT NULL,
-    updated_at int NOT NULL);
-`)
+		create table if not exists users (
+			id char(14) NOT NULL primary key,
+			name varchar(50) NOT NULL,
+			age int NOT NULL,
+			gender char(1) NOT NULL, 
+			created_at int NOT NULL,
+			updated_at int NOT NULL);
+		`)
 	if err != nil {
 		return err
 	}
