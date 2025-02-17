@@ -4,6 +4,7 @@ import (
 	"ExpenseManagement/internal/userService/contracts"
 	"ExpenseManagement/internal/userService/model"
 	"ExpenseManagement/packages/database"
+	"fmt"
 	"time"
 )
 
@@ -35,6 +36,30 @@ func (u *UserRepo) Create(usr *contracts.User) (*model.UserDb, error) {
 
 	return userDb, nil
 
+}
+
+func (u *UserRepo) FindByUserId(userId string) (*model.UserDb, error) {
+	user := model.UserDb{}
+	count, err := u.Dbs.FindByID(&user, userId)
+	if err != nil {
+		return nil, err
+	}
+	if count == 0 {
+		return nil, fmt.Errorf("user_not_found")
+	}
+	return &user, nil
+}
+
+func (u *UserRepo) FindUserByIdForLogin(userId string) (*model.PasswordDb, error) {
+	user := model.PasswordDb{}
+	count, err := u.Dbs.FindWithQuery(&user, map[string]interface{}{"userid": userId})
+	if err != nil {
+		return nil, err
+	}
+	if count == 0 {
+		return nil, fmt.Errorf("user_not_found")
+	}
+	return &user, nil
 }
 
 func ToPasswordModel(usr *contracts.User) *model.PasswordDb {

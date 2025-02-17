@@ -73,24 +73,9 @@ func (db *DatabaseGorm) FindByID(model interface{}, id string) (int64, error) {
 }
 
 // FindWithQuery retrieves records based on a custom query builder with optional offset, limit, and order
-func (db *DatabaseGorm) FindWithQuery(query *gorm.DB, dest interface{}, offset, limit *int, order *string) error {
-	// Apply optional order
-	if order != nil {
-		query = query.Order(*order)
-	}
-
-	// Apply optional limit
-	if limit != nil {
-		query = query.Limit(*limit)
-	}
-
-	// Apply optional offset
-	if offset != nil {
-		query = query.Offset(*offset)
-	}
-
-	// Execute the query
-	return query.Find(dest).Error
+func (db *DatabaseGorm) FindWithQuery(model interface{}, query map[string]interface{}) (int64, error) {
+	r := db.Db.Model(model).Where(query).Find(model)
+	return r.RowsAffected, r.Error
 }
 
 func (db *DatabaseGorm) DeleteWithWhere(model interface{}, conditions map[string]interface{}) error {

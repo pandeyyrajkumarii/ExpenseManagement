@@ -4,6 +4,9 @@ go 1.23.5
 
 require (
 	github.com/go-chi/chi/v5 v5.2.1
+	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
+	github.com/golang-jwt/jwt/v4 v4.5.1
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/pressly/goose/v3 v3.24.1
 	github.com/spf13/viper v1.19.0
 	gorm.io/driver/mysql v1.5.7

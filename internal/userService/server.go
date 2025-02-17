@@ -3,6 +3,7 @@ package userService
 import (
 	"ExpenseManagement/internal/userService/contracts"
 	"ExpenseManagement/internal/userService/service"
+	"ExpenseManagement/internal/utils"
 	"encoding/json"
 	"k8s.io/klog/v2"
 	"net/http"
@@ -24,15 +25,27 @@ func (s *Server) CreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 	resp, err := s.Service.CreateUser(&user)
 	if err != nil {
+		utils.HandleErrorResponse(w, err)
+		return
+	}
+	utils.HandleResponse(w, resp)
+
+	klog.Infof("Create User success", user)
+}
+
+func (s *Server) LoginUser(w http.ResponseWriter, r *http.Request) {
+	var login contracts.UserLogin
+	if err := json.NewDecoder(r.Body).Decode(&login); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	jsonOut, err := json.Marshal(resp)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-	}
-	w.WriteHeader(http.StatusCreated)
-	w.Write(jsonOut)
 
-	klog.Infof("Create User success", user)
+	resp, err := s.Service.LoginUser(&login)
+	if err != nil {
+		utils.HandleErrorResponse(w, err)
+		return
+	}
+	utils.HandleResponse(w, resp)
+
+	klog.Infof("logged in successfully!!!", login)
 }

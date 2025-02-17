@@ -12,4 +12,5 @@ func (s *Server) registerRoutes(mux *chi.Mux) {
 	})
 
 	mux.Post("/expense/signup", s.UserServer.CreateUser)
+	mux.Post("/expense/login", s.UserServer.LoginUser)
 }
