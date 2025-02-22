@@ -6,7 +6,7 @@ import (
 )
 
 func HandleResponse(w http.ResponseWriter, resp interface{}) {
-	jsonOut, err := json.Marshal(resp)
+	jsonOut, err := json.MarshalIndent(resp, "", "  ")
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 	}

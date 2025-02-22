@@ -13,17 +13,17 @@ func init() {
 func upTnxTable(ctx context.Context, tx *sql.Tx) error {
 	// This code is executed when the migration is applied.
 	_, err := tx.Exec(`
-				create table if not exists tnxs (
-				    txnId varchar(255) not null primary key,
-				    userId char(14) NOT NULL,
+				create table if not exists transactions (
+				    txn_id varchar(255) not null,
+				    user_id char(14) NOT NULL,
 				    amount decimal(20,2) not null,
 				    category varchar(255) ,
-				    transactionType enum('debit', 'credit') NOT NULL ,
+				    txn_type enum('debit', 'credit') NOT NULL ,
 				    description text ,
-				    txnTime timestamp default CURRENT_TIMESTAMP,
+				    txn_time timestamp default CURRENT_TIMESTAMP,
 				    created_at int NOT NULL,
 					updated_at int NOT NULL,
-				    Foreign key (userId) references users(id) on delete cascade
+				    Foreign key (user_id) references users(id) on delete cascade
 				);
 		`)
 	if err != nil {
@@ -34,7 +34,7 @@ func upTnxTable(ctx context.Context, tx *sql.Tx) error {
 
 func downTnxTable(ctx context.Context, tx *sql.Tx) error {
 	// This code is executed when the migration is rolled back.
-	_, err := tx.Exec(`drop table if exists tnxs`)
+	_, err := tx.Exec(`drop table if exists transactions;`)
 	if err != nil {
 		return err
 	}

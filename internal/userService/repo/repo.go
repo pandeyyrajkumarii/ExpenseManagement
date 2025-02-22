@@ -52,7 +52,7 @@ func (u *UserRepo) FindByUserId(userId string) (*model.UserDb, error) {
 
 func (u *UserRepo) FindUserByIdForLogin(userId string) (*model.PasswordDb, error) {
 	user := model.PasswordDb{}
-	count, err := u.Dbs.FindWithQuery(&user, map[string]interface{}{"userid": userId})
+	count, err := u.Dbs.FindWithQuery(&user, map[string]interface{}{"user_id": userId})
 	if err != nil {
 		return nil, err
 	}

@@ -5,8 +5,8 @@ type UserDb struct {
 	Name      string `gorm:"not null" json:"name"`
 	Age       int    `gorm:"not null" json:"age"`
 	Gender    string `gorm:"not null" json:"gender"`
-	CreatedAt int64  `gorm:"not null" json:"createdAt"`
-	UpdatedAt int64  `gorm:"not null" json:"updatedAt"`
+	CreatedAt int64  `gorm:"not null" json:"created_at"`
+	UpdatedAt int64  `gorm:"not null" json:"updated_at"`
 }
 
 func (UserDb) TableName() string {
@@ -14,11 +14,11 @@ func (UserDb) TableName() string {
 }
 
 type PasswordDb struct {
-	UserId    string `gorm:"column:userid;not null" json:"userid"`
+	UserId    string `gorm:"column:user_id;not null" json:"user_id"`
 	Password  string `gorm:"not null" json:"password"`
 	Token     []byte `gorm:"not null" json:"token"`
-	CreatedAt int64  `gorm:"not null" json:"createdAt"`
-	UpdatedAt int64  `gorm:"not null" json:"updatedAt"`
+	CreatedAt int64  `gorm:"not null" json:"created_at"`
+	UpdatedAt int64  `gorm:"not null" json:"updated_at"`
 }
 
 func (PasswordDb) TableName() string {

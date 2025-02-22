@@ -14,7 +14,7 @@ func upPasswordTable(ctx context.Context, tx *sql.Tx) error {
 	// This code is executed when the migration is applied.
 	_, err := tx.Exec(`
 		create table if not exists passwords (
-		    userid char(14) primary key,
+		    user_id char(14) primary key,
 		    password varchar(255) not null,
 		    token text not null,
 		    created_at int not null,

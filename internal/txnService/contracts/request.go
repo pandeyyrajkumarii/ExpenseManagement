@@ -8,3 +8,8 @@ type Transaction struct {
 	Description string  `json:"description"`
 	TxnTime     int64   `json:"txn_time"`
 }
+
+type GetTransactionRequest struct {
+	TxnFrom int64 `json:"txn_from"`
+	TxnTo   int64 `json:"txn_to"`
+}

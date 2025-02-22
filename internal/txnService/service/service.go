@@ -50,3 +50,12 @@ func (s *Service) SaveTransaction(req *contracts.Transaction, userID string) (*c
 		TxnTime:     txnDB.TxnTime}, nil
 
 }
+
+func (s *Service) GetTransactionByFilter(req *contracts.GetTransactionRequest,
+	userID string) (*contracts.MultipleTransactionResponse, error) {
+	txnData, err := s.TxnRepo.GetByQuery(req, userID)
+	if err != nil {
+		return nil, err
+	}
+	return txnData, nil
+}

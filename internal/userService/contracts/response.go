@@ -1,9 +1,9 @@
 package contracts
 
 type UserResponse struct {
-	UserId string
+	UserId string `json:"user_id"`
 }
 
 type LoginResponse struct {
-	Token string
+	Token string `json:"token"`
 }

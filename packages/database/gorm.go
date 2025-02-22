@@ -78,6 +78,11 @@ func (db *DatabaseGorm) FindWithQuery(model interface{}, query map[string]interf
 	return r.RowsAffected, r.Error
 }
 
+func (db *DatabaseGorm) FindWithQueryFilter(model interface{}, query *gorm.DB) (int64, error) {
+	r := query.Find(model)
+	return r.RowsAffected, r.Error
+}
+
 func (db *DatabaseGorm) DeleteWithWhere(model interface{}, conditions map[string]interface{}) error {
 	return db.Db.Where(conditions).Delete(model).Error
 }
