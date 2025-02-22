@@ -15,9 +15,9 @@ func NewTxnRepo(db *database.DatabaseGorm) *TxnRepo {
 	return &TxnRepo{Dbs: db}
 }
 
-func (t *TxnRepo) Create(txn *contracts.Transaction) (*model.TxnDb, error) {
+func (t *TxnRepo) Create(txn *contracts.Transaction, userID string) (*model.TxnDb, error) {
 	currentTime := time.Now().Unix()
-	txnDb := ToTxnDBModel(txn)
+	txnDb := ToTxnDBModel(txn, userID)
 	txnDb.CreatedAt = currentTime
 	txnDb.UpdatedAt = currentTime
 	_, err := t.Dbs.Create(&txnDb)
@@ -27,11 +27,11 @@ func (t *TxnRepo) Create(txn *contracts.Transaction) (*model.TxnDb, error) {
 	return txnDb, nil
 }
 
-func ToTxnDBModel(txn *contracts.Transaction) *model.TxnDb {
+func ToTxnDBModel(txn *contracts.Transaction, userID string) *model.TxnDb {
 
 	return &model.TxnDb{
 		TxnId:       txn.TxnId,
-		UserId:      txn.UserId,
+		UserId:      userID,
 		Amount:      txn.Amount,
 		Category:    txn.Category,
 		TxnType:     txn.TxnType,

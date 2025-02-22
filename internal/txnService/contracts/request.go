@@ -1,11 +1,10 @@
 package contracts
 
 type Transaction struct {
-	TxnId       string
-	UserId      string
-	Amount      float64
-	Category    string
-	TxnType     string
-	Description string
-	TxnTime     int64
+	TxnId       string  `json:"txn_id"`
+	Amount      float64 `json:"amount"`
+	Category    string  `json:"category"`
+	TxnType     string  `json:"txn_type"`
+	Description string  `json:"description"`
+	TxnTime     int64   `json:"txn_time"`
 }

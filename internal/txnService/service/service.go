@@ -20,13 +20,13 @@ func NewService(opt ...Opt) *Service {
 	return sv
 }
 
-func (s *Service) SaveTransaction(req *contracts.Transaction) (*contracts.TransactionResponse, error) {
+func (s *Service) SaveTransaction(req *contracts.Transaction, userID string) (*contracts.TransactionResponse, error) {
 	err := s.ValidateCreateTransactionRequest(*req)
 	if err != nil {
 		klog.Infof("Validation falied..", "error: ", err.Error())
 		return nil, err
 	}
-	user, err := s.UserRepo.FindByUserId(req.UserId)
+	user, err := s.UserRepo.FindByUserId(userID)
 	if err != nil && err.Error() != "user_not_found" {
 		klog.Infof("DB error")
 		return nil, err
@@ -36,7 +36,7 @@ func (s *Service) SaveTransaction(req *contracts.Transaction) (*contracts.Transa
 		return nil, nil
 	}
 
-	txnDB, err := s.TxnRepo.Create(req)
+	txnDB, err := s.TxnRepo.Create(req, userID)
 	if err != nil {
 		return nil, err
 	}

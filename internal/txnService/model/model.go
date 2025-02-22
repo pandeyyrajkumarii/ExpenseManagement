@@ -1,7 +1,7 @@
 package model
 
 type TxnDb struct {
-	TxnId       string  `gorm:"column:txnid;primary_key" json:"txnId"`
+	TxnId       string  `gorm:"column:txnid;not null" json:"txnId"`
 	UserId      string  `gorm:"column:userid;not null" json:"userid"`
 	Amount      float64 `gorm:"not null" json:"amount"`
 	Category    string  `gorm:"default null" json:"category"`

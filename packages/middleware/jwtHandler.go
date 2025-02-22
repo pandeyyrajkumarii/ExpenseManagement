@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-var jwtSecret = []byte("your-secret-key") // Use a secure secret key
+var jwtSecret = []byte("expense-secret-key")
 
 // Claims struct represents the token payload
 type Claims struct {

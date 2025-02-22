@@ -22,9 +22,13 @@ func (s *Server) SaveTransaction(w http.ResponseWriter, r *http.Request) {
 	if err := json.NewDecoder(r.Body).Decode(&txn); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 	}
-
+	userID, ok := r.Context().Value("userID").(string)
+	if !ok {
+		http.Error(w, "User not found, sign in", http.StatusUnauthorized)
+		return
+	}
 	klog.Infof("Saving transaction: %v", txn)
-	resp, err := s.Service.SaveTransaction(&txn)
+	resp, err := s.Service.SaveTransaction(&txn, userID)
 	if err != nil {
 		utils.HandleErrorResponse(w, err)
 		return
