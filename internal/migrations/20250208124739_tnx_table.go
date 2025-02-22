@@ -14,11 +14,17 @@ func upTnxTable(ctx context.Context, tx *sql.Tx) error {
 	// This code is executed when the migration is applied.
 	_, err := tx.Exec(`
 				create table if not exists tnxs (
-				    userId char(14) primary key,
+				    txnId varchar(255) not null primary key,
+				    userId char(14) NOT NULL,
 				    amount decimal(20,2) not null,
+				    category varchar(255) ,
+				    transactionType enum('debit', 'credit') NOT NULL ,
+				    description text ,
 				    txnTime timestamp default CURRENT_TIMESTAMP,
-				    misc JSON
-				)
+				    created_at int NOT NULL,
+					updated_at int NOT NULL,
+				    Foreign key (userId) references users(id) on delete cascade
+				);
 		`)
 	if err != nil {
 		return err

@@ -1,6 +1,9 @@
 package server
 
-import "ExpenseManagement/internal/userService"
+import (
+	"ExpenseManagement/internal/txnService"
+	"ExpenseManagement/internal/userService"
+)
 
 type Opt func(server *Server)
 
@@ -13,5 +16,11 @@ func WithPort(port string) Opt {
 func WithUserServer(usrSvr *userService.Server) Opt {
 	return func(server *Server) {
 		server.UserServer = usrSvr
+	}
+}
+
+func WithTxnServer(txnSvr *txnService.Server) Opt {
+	return func(server *Server) {
+		server.TxnServer = txnSvr
 	}
 }

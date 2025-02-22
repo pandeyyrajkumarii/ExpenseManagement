@@ -1,6 +1,7 @@
 package server
 
 import (
+	"ExpenseManagement/internal/txnService"
 	"ExpenseManagement/internal/userService"
 	"github.com/go-chi/chi/v5"
 	"k8s.io/klog/v2"
@@ -10,6 +11,7 @@ import (
 type Server struct {
 	Port       string
 	UserServer *userService.Server
+	TxnServer  *txnService.Server
 }
 
 func NewServer(opt ...Opt) *Server {

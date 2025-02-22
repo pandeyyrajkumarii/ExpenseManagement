@@ -2,6 +2,8 @@ package main
 
 import (
 	"ExpenseManagement/cmd/config"
+	txSvc "ExpenseManagement/internal/txnService"
+	svc1 "ExpenseManagement/internal/txnService/service"
 	usrSvc "ExpenseManagement/internal/userService"
 	svc "ExpenseManagement/internal/userService/service"
 	"ExpenseManagement/packages/database"
@@ -23,8 +25,13 @@ func main() {
 	userSvc := svc.NewService(
 		svc.WithRepo(dbInstance))
 	usrSvr := usrSvc.NewServer(userSvc)
+	txnSvc := svc1.NewService(
+		svc1.WithRepo(dbInstance),
+		svc1.WithUserRepo(dbInstance))
+	txnServer := txSvc.NewServer(txnSvc)
 	svr := server.NewServer(
 		server.WithPort("8000"),
-		server.WithUserServer(usrSvr))
+		server.WithUserServer(usrSvr),
+		server.WithTxnServer(txnServer))
 	svr.Start()
 }
